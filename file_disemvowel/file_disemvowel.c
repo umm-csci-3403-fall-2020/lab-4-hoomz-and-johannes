@@ -16,10 +16,8 @@ int copy_non_vowels(int num_chars, char *in_buf, char *out_buf){
 
     int x = 0;
 
-    for (int i = 0; i < num_chars; i++)
-    {
-        if (is_vowel(in_buf[i]) == false)
-        {
+    for (int i = 0; i < num_chars; i++){
+        if (is_vowel(in_buf[i]) == false){
             out_buf[x] = in_buf[i];
             x++;
         }
