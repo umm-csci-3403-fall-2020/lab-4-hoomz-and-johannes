@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #define BUF_SIZE 1024
 
@@ -65,10 +66,10 @@ int main(int argc, char *argv[]){
     else if (argc == 3){
         inputFile = fopen(argv[1], "r");
         outputFile = fopen(argv[2], "w+");
-        fclose(outputFile);
     }
     // Code that processes the command line arguments
     // and sets up inputFile and outputFile.
     disemvowel(inputFile, outputFile);
+    fclose(outputFile);
     return 0;
 }
