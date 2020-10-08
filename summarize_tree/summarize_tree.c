@@ -75,7 +75,6 @@ void process_file(const char* path) {
 
 void process_path(const char* path) {
   if (is_dir(path)) {
-    printf("Here");
     process_directory(path);
   } else {
     process_file(path);
