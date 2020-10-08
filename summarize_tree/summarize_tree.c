@@ -30,7 +30,48 @@ bool is_dir(const char* path) {
     
 }
 
+/* 
+ * I needed this because the multiple recursion means there's no way to
+ * order them so that the definitions all precede the cause.
+ */
+void process_path(const char*);
 
+void process_directory(const char* path) {
+  /*
+   * Update the number of directories seen, use opendir() to open the
+   * directory, and then use readdir() to loop through the entries
+   * and process them. You have to be careful not to process the
+   * "." and ".." directory entries, or you'll end up spinning in
+   * (infinite) loops. Also make sure you closedir() when you're done.
+   *
+   * You'll also want to use chdir() to move into this new directory,
+   * with a matching call to chdir() to move back out of it when you're
+   * done.
+   */
+  DIR *directory = opendir(path); // Pointer to current directory
+
+  if (directory != NULL) {
+    
+    chdir(path);
+    // Loop through given directory until all is read
+    while (readdir(directory) != NULL || strcmp(readdir(directory)->d_name, ".") != 0 || strcmp(readdir(directory)->d_name, ".." ) != 0) {
+      process_path(readdir(directory)->d_name);
+      num_dirs++; // Increment number of directories
+    }
+    chdir(".."); // Move back to parent directory
+  }
+
+  
+  closedir(directory);
+
+}
+
+void process_file(const char* path) {
+  /*
+   * Update the number of regular files.
+   */
+  num_regular++;
+}
 
 void process_path(const char* path) {
   if (is_dir(path)) {
